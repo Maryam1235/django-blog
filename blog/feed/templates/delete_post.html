@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block navigation %}
+<a class="navbar-brand btn btn-primary" href="{% url "home" %}">Home</a>
+{% endblock navigation %}
+
+{% block main %}
+    <h2>Delete Post</h2>
+    <p>Are you sure you want to delete "{{ object.text }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock main %}

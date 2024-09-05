@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="row">
+    <div class="col-md-8">
+        <h4 class="my-4">Post Detail</h4>
+        <div class="card mx-2 my-2 px-4" style="width: 100%;">
+            <img src="{{ object.image.url }}" class="card-img-top" alt="post-image">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.author.first_name }} {{ object.author.last_name }} - {{ object.created_at }}</h5>
+                <p class="card-text">{{ object.text }}.</p>
+                {% if object.author == request.user %}
+                              <a href="{% url 'update_post' object.pk %}" class="btn btn-primary">Update</a>
+                              <a href="{% url 'delete_post' object.pk %}" class="btn btn-danger">Delete</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <h4 class="my-4">Comments<h4>
+            {%for comment in comments%}
+            <div class="card my-4" style="width: 24rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.author.first_name }} {{ comment.author.last_name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.created_at }}</h6>
+                    <p class="card-text">{{ comment.text }}.</p>
+                </div>
+            </div>
+            {%endfor%}
+            <a href="{% url "create_comment" object.id %}" class="btn btn-secondary">Comment</a>
+    </div>
+</div>
+
+
+<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Add Comment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Comment Form -->
+                <form method="POST" action="{% url 'create_comment' object.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="feed" value="{{ object.id }}">
+                    <div class="mb-3">
+                        <label for="commentText" class="form-label">Your Comment</label>
+                        <textarea class="form-control" id="commentText" name="text" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}

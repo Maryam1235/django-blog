@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block navigation %}
+<a class="navbar-brand btn btn-primary" href="{% url "home" %}">Home </a>
+{% endblock navigation %}       
+
+{% block main %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% comment %} {{ form.as_p }} {% endcomment %}
+            
+            {% comment %} {{ request.user }} {% endcomment %}
+
+            {% comment %} <div class="mb-3">
+                <input class="form-control" name="author" type="hidden" value={{request.user}} id="exampleFormControlText" ></input>
+            </div> {% endcomment %}
+
+           <div class="mb-3">
+                <label for="exampleInputText" class="form-label">Text</label>
+                <textarea class="form-control" name="text" id="exampleFormControlText" rows="4"></textarea>
+                <div id="Help" class="form-text">Explain more about your post</div>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputImage" class="form-label">Image</label>
+                <input type="file" name="image" class="form-control" id="exampleInputImage">
+            </div>
+      
+            <button type="submit" class="btn btn-primary">Submit</button> 
+        </form>
+{% endblock main %}
+   

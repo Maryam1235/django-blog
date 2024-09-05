@@ -1,0 +1,18 @@
+{% comment %} {% extends "base.html" %}
+
+{% block main %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <input type="hidden" name="feed" value="{{ feed.id }}">
+            <label for="exampleInputText" class="form-label">Text</label>
+            <textarea class="form-control" name="text" id="exampleFormControlText" rows="4"></textarea>
+            <div id="Help" class="form-text">Express your views about this post</div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary">Submit</button> 
+    </form>
+ 
+{% endblock main %} {% endcomment %}

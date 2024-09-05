@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block navigation %}
+<a class="navbar-brand btn btn-primary" href="{% url "create_post" %}"> Create Post</a>
+{% endblock navigation %}
+
+  {% block main %}
+
+        <div class="row">
+
+          {% for object in object_list %}
+            <div class="col-md-4">
+              <div class="card mx-2 my-2 px-4" style="width: 24rem;">
+                  <a href="{% url "post_detail" object.id %}"><img src="{{ object.image.url }}" class="card-img-top" alt="post-image"></a>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ object.author.first_name }} {{ object.author.last_name }} - {{ object.created_at }}</h5>
+                      <p class="card-text">{{ object.text|truncatechars:100}}.</p>
+                  </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+  {% endblock main %}
