@@ -10,6 +10,13 @@ class Login(LoginView):
     template_name="login.html"
     fields=["username","password"]
     success_url=reverse_lazy("home")
+    
+class Register(CreateView):
+    model=User
+    template_name="register.html"
+    fields=["first_name","last_name","email","phone_number","username","password"]
+    login_url=reverse_lazy("login")
+    success_url=reverse_lazy("home")
 
 class Logout(LogoutView):
     next_page=reverse_lazy("home")
@@ -52,7 +59,7 @@ class FeedDetailedView(DetailView):
 class CreateComment(LoginRequiredMixin,CreateView):
     model=Comment
     fields=["text","feed"]
-    template_name="create_comment.html"
+    template_name="feed_detail.html"
     success_url=reverse_lazy("home")
     login_url=reverse_lazy("login")
     
